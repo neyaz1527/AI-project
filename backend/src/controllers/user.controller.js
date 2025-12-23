@@ -1,9 +1,9 @@
-const pool = require("../db/connection");
+const userService = require("../services/user.service");
 
 exports.getUsers = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows);
+    const users = await userService.getAllUsers();
+    res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
