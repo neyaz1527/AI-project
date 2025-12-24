@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "migrate": "flyway migrate",
+    "clean": "flyway clean",
+    "info": "flyway info"
   },
   "keywords": [],
   "author": "",
