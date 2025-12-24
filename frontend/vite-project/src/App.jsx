@@ -25,8 +25,16 @@ function App() {
       .then(() => {
         setName("");
         setEmail("");
-        loadUsers(); // refresh list
+        loadUsers();
       })
+      .catch((err) => console.error(err));
+  };
+
+  const deleteUser = (id) => {
+    fetch(`http://localhost:3000/api/users/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => loadUsers())
       .catch((err) => console.error(err));
   };
 
@@ -34,27 +42,24 @@ function App() {
     <div style={{ padding: "20px" }}>
       <h1>Users</h1>
 
-      {/* ADD USER FORM */}
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <button onClick={addUser}>Add User</button>
 
       <hr />
 
-      {/* USER LIST */}
       {users.length === 0 && <p>No users found</p>}
+
       <ul>
         {users.map((u) => (
           <li key={u.id}>
             {u.id} - {u.name} — {u.email}
+            <button
+              onClick={() => deleteUser(u.id)}
+              style={{ marginLeft: "10px", color: "red" }}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
